@@ -6,6 +6,9 @@ int minPsi = 0;
 int minVac = 0;
 int setPsi = 0;
 
+//The map values in the functions are described as inputing the sensor value and mapping 
+//it to the voltage threshholds and then mapping the 
+//values or units you would like to use
 
 int mpx5700::getPsi(int pin){
 	int Pinval = pin;
