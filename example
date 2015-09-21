@@ -1,0 +1,57 @@
+////////////////////////////////////////////////////////////////////////////////////////////
+//          
+//  -    This is a basic Pressure Reading Library
+//  -    The example will return values in units of psi for pressure, inHg for vacuum
+//       
+//        FUNCTIONS TO CALL:
+//           getKpa(int Pin);
+//           getPsi(int Pin);
+//           getVac(int pin);
+//           maxPsi(int Pin);
+//           maxVac(int Pinin);
+//           setWarnPsi(int Pin); // just defaults to 10 unless you alter the .cpp file and add a potentiomete or button   
+//
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include <mpx5700.h>                                  
+                                                   
+// Pin 1 (notch on sensor) - Analog output         
+// Pin 2 - Gnd
+// Pin 3 - 5V
+
+
+//Call the first instance of the class so you have the ability to call built in functions of library
+mpx5700 mpx;
+
+
+// Here we would have the data pin 1 connected to A0, we then set that to the analog zero on the arduino board.
+
+int sensorPin = A0;    // Select input pin for the pressure sensor
+int sensorValue = 0;   // Variable stores value coming from the sensor
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  
+//this example will presesnt pressure if you have a >= 0 pressure value else it prints the vacuum in inHg
+
+  int psi = mpx.getPsi(sensorPin);
+  if( psi >=0 ){
+   Serial.println(mpx.getPsi(sensorPin),DEC);
+   Serial.println("maxpsi");
+   Serial.println(mpx.maxPsi(psi),DEC);
+   delay(1000);
+   
+  }
+  else{
+   Serial.println(mpx.getVac(sensorPin),DEC);
+   Serial.println("max vac");
+   Serial.println(mpx.maxVac(psi),DEC);
+   delay(1000);
+  }
+  // Display result
+  delay(40); 	    // Wait 400 milliseconds
+}
